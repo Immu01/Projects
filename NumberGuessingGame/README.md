@@ -1,34 +1,58 @@
-# 🎯 Number Guessing Game
+# 🎯 Number Guessing Game  
+[![Made with Python](https://img.shields.io/badge/Made%20with-Python-blue?style=for-the-badge&logo=python)]()  
+[![Console Game](https://img.shields.io/badge/Type-Console%20Game-orange?style=for-the-badge)]()  
+[![Beginner Friendly](https://img.shields.io/badge/Level-Beginner-green?style=for-the-badge)]()
 
-## 📌 Project Overview
-The **Number Guessing Game** is a Python-based interactive console game where the computer chooses a random number between **1 and 100**, and the player has **10 attempts** to guess it correctly.
+---
 
-The game includes :
-- Random number generation  
+## 📚 Table of Contents
+- [📌 Overview](#-overview)
+- [✨ Features](#-features)
+- [🎮 How It Works](#-how-it-works)
+- [🧠 Concepts Used](#-concepts-used)
+- [🖥️ Output Screenshot](#️-output-screenshot)
+
+---
+
+## 📌 Overview
+The **Number Guessing Game** is a fun Python console-based game where the computer generates a random number between **1 and 100**.  
+The user gets **10 attempts** to guess the number correctly while receiving hints after each guess.
+
+This project is perfect for beginners learning Python fundamentals.
+
+---
+
+## ✨ Features
+- 🔢 Random number generation  
+- 🎯 10 attempts to guess  
+- 🔍 Hints: too high / too low  
+- 🧮 Even or odd number hint  
+- 👮 Input validation for safe input  
+- 🔁 Replay option  
+
+---
+
+## 🎮 How It Works
+1. Computer selects a number between **1–100**  
+2. Player enters a guess  
+3. Game provides hints:
+   - Too high  
+   - Too low  
+   - Even or odd  
+4. Player wins if they guess correctly  
+5. Game ends after 10 failed attempts  
+6. User can choose to **play again**
+
+---
+
+## 🧠 Concepts Used
+- `while` and `for` loops  
+- `try–except` for error handling  
+- Random number generation (`random.randint`)  
 - Input validation  
-- Hints (too high/ too low/ even/ odd)  
-- Attempt tracking
-- Replay option  
+- Conditional statements  
 
-This project is designed using basic Python concepts such as loops, conditionals, exception handling, and the `random` module.
-
-------------------------------
-
-## 🎮 How the Game Works
-1. The computer selects a number between **1–100**
-2. Player is given **10 attempts**
-3. After each guess, the game provides :
-   - Whether the guess is too high or too low  
-   - Whether the number is even or odd  
-4. If the guess is correct → Player wins  
-5. If attempts run out → Game over  
-6. Player can choose to play again
-
-------------------------------
+---
 
 ## 🖥️ Output Screenshot
-<br>
-<img width="1165" height="489" alt="Demo - 1" src="https://github.com/user-attachments/assets/18955829-886a-4113-9d88-75596ce7246b" />
-<br>
-<br>
-<img width="1214" height="664" alt="Demo - 2" src="https://github.com/user-attachments/assets/16b13fc7-47bb-490f-9f18-e17ce0911e07" />
+> **<img width="1165" height="489" alt="519986768-18955829-886a-4113-9d88-75596ce7246b" src="https://github.com/user-attachments/assets/22b77a75-7289-4b8f-bd0d-49b7aee18a1b" />**
