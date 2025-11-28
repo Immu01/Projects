@@ -56,3 +56,4 @@ This project is perfect for beginners learning Python fundamentals.
 
 ## 🖥️ Output Screenshot
 > **<img width="1165" height="489" alt="519986768-18955829-886a-4113-9d88-75596ce7246b" src="https://github.com/user-attachments/assets/22b77a75-7289-4b8f-bd0d-49b7aee18a1b" />**
+> **<img width="1214" height="664" alt="519986877-16b13fc7-47bb-490f-9f18-e17ce0911e07" src="https://github.com/user-attachments/assets/d37d0de5-ebf1-44f8-9e1c-3ff59dcec5b6" />**
