@@ -28,7 +28,6 @@ This project is designed using basic Python concepts such as loops, conditionals
 
 ## 🖥️ Output Screenshot
 <br>
-<br>
 <img width="1165" height="489" alt="Demo - 1" src="https://github.com/user-attachments/assets/18955829-886a-4113-9d88-75596ce7246b" />
 <br>
 <br>
