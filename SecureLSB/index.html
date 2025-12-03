@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StegoVault - Secure Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .cyber-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .input-group:focus-within label {
+            color: #38bdf8;
+        }
+
+        .input-group:focus-within i {
+            color: #38bdf8;
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+        }
+
+        /* Glitch effect on hover for the logo */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #38bdf8;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
+        }
+
+        /* Background grid animation */
+        .grid-bg {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: grid-move 20s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(30px);
+            }
+        }
+
+        .hidden-panel {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .visible-panel {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="text-slate-200 h-screen flex items-center justify-center relative">
+
+    <!-- Background Grid Animation -->
+    <div class="grid-bg"></div>
+
+    <div class="container max-w-md w-full p-6 relative z-10">
+
+        <!-- Main Card -->
+        <div class="glass-panel rounded-2xl p-8 relative overflow-hidden">
+
+            <!-- Decorative top bar -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500">
+            </div>
+
+            <!-- Logo / Header -->
+            <div class="text-center mb-8">
+                <div
+                    class="inline-flex items-center justify-center p-4 rounded-2xl bg-slate-800/50 mb-5 border border-slate-700 shadow-[0_0_20px_rgba(34,211,238,0.15)] relative group overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+
+                    <!-- Tech Shield Icon -->
+                    <svg class="w-10 h-10 text-cyan-400 relative z-10" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    </svg>
+
+                    <!-- Decorative binary bits -->
+                    <div class="absolute top-2 right-3 text-[10px] text-cyan-500/30 font-mono">1</div>
+                    <div class="absolute bottom-2 left-3 text-[10px] text-cyan-500/30 font-mono">0</div>
+                </div>
+                <h1 class="text-3xl font-bold tracking-tight text-white mb-1 glitch-hover cursor-default">StegoVault
+                </h1>
+                <p class="text-slate-400 text-sm">Secure LSB Steganography Portal</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-6 visible-panel" onsubmit="handleLogin(event)">
+
+                <!-- Email Input -->
+                <div class="input-group">
+                    <label
+                        class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 cyber-font">Identity</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-regular fa-envelope text-slate-500 transition-colors"></i>
+                        </div>
+                        <input type="email" id="email" required
+                            class="input-field w-full bg-slate-900/50 text-white border border-slate-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-cyan-500 placeholder-slate-600"
+                            placeholder="user@secure.net">
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="input-group">
+                    <label
+                        class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 cyber-font">Access
+                        Key</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-slate-500 transition-colors"></i>
+                        </div>
+                        <input type="password" id="password" required
+                            class="input-field w-full bg-slate-900/50 text-white border border-slate-700 rounded-lg py-3 pl-10 pr-12 focus:outline-none focus:border-cyan-500 placeholder-slate-600"
+                            placeholder="••••••••">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                            onclick="togglePassword()">
+                            <i class="fa-regular fa-eye text-slate-500 hover:text-cyan-400 transition-colors"
+                                id="eyeIcon"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-2">
+                        <a href="#" class="text-xs text-cyan-500 hover:text-cyan-400 hover:underline">Forgot Key?</a>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="loginBtn"
+                    class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-cyan-500/20 flex justify-center items-center gap-2">
+                    <span>AUTHENTICATE</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <!-- Switch to Register -->
+                <div class="text-center mt-6">
+                    <p class="text-slate-400 text-sm">
+                        New Protocol?
+                        <a href="#" onclick="switchMode('register')"
+                            class="text-cyan-400 hover:text-cyan-300 font-semibold ml-1 transition-colors">Initialize
+                            Setup</a>
+                    </p>
+                </div>
+            </form>
+
+            <!-- Register Form (Hidden by default) -->
+            <form id="registerForm" class="space-y-6 hidden-panel" onsubmit="handleRegister(event)">
+
+                <!-- Username Input -->
+                <div class="input-group">
+                    <label
+                        class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 cyber-font">Codename</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-regular fa-user text-slate-500 transition-colors"></i>
+                        </div>
+                        <input type="text" required
+                            class="input-field w-full bg-slate-900/50 text-white border border-slate-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-purple-500 placeholder-slate-600"
+                            placeholder="Neo">
+                    </div>
+                </div>
+
+                <!-- Email Input -->
+                <div class="input-group">
+                    <label
+                        class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 cyber-font">Identity</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-regular fa-envelope text-slate-500 transition-colors"></i>
+                        </div>
+                        <input type="email" required
+                            class="input-field w-full bg-slate-900/50 text-white border border-slate-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-purple-500 placeholder-slate-600"
+                            placeholder="user@secure.net">
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="input-group">
+                    <label
+                        class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 cyber-font">Set
+                        Access Key</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-slate-500 transition-colors"></i>
+                        </div>
+                        <input type="password" required
+                            class="input-field w-full bg-slate-900/50 text-white border border-slate-700 rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-purple-500 placeholder-slate-600"
+                            placeholder="••••••••">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-purple-500/20 flex justify-center items-center gap-2">
+                    <span>INITIALIZE</span>
+                    <i class="fa-solid fa-check"></i>
+                </button>
+
+                <!-- Switch to Login -->
+                <div class="text-center mt-6">
+                    <p class="text-slate-400 text-sm">
+                        Existing Agent?
+                        <a href="#" onclick="switchMode('login')"
+                            class="text-purple-400 hover:text-purple-300 font-semibold ml-1 transition-colors">Authenticate</a>
+                    </p>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-xs text-slate-500 cyber-font">
+            <p>ENCRYPTION LEVEL: AES-256</p>
+            <p class="mt-1">SYSTEM STATUS: <span class="text-green-500">ONLINE</span></p>
+        </div>
+    </div>
+
+    <!-- Notification Toast (Hidden) -->
+    <div id="toast" class="fixed top-5 right-5 transform translate-x-full transition-transform duration-300 z-50">
+        <div
+            class="bg-slate-800 border-l-4 border-cyan-500 text-white px-6 py-4 rounded shadow-2xl flex items-center gap-3">
+            <i class="fa-solid fa-circle-check text-cyan-500"></i>
+            <div>
+                <h4 class="font-bold text-sm">System Message</h4>
+                <p class="text-xs text-slate-300" id="toastMessage">Access Granted.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Password Visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Switch between Login and Register modes
+        function switchMode(mode) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const cardHeader = document.querySelector('.glass-panel > div:nth-child(2)'); // The Logo header
+
+            if (mode === 'register') {
+                loginForm.classList.remove('visible-panel');
+                loginForm.classList.add('hidden-panel');
+                setTimeout(() => {
+                    loginForm.style.display = 'none';
+                    registerForm.style.display = 'block';
+                    // Small delay to allow display block to apply before opacity transition
+                    requestAnimationFrame(() => {
+                        registerForm.classList.remove('hidden-panel');
+                        registerForm.classList.add('visible-panel');
+                    });
+                }, 400); // Wait for fade out
+            } else {
+                registerForm.classList.remove('visible-panel');
+                registerForm.classList.add('hidden-panel');
+                setTimeout(() => {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                    requestAnimationFrame(() => {
+                        loginForm.classList.remove('hidden-panel');
+                        loginForm.classList.add('visible-panel');
+                    });
+                }, 400);
+            }
+        }
+
+        // Handle Login Simulation
+        function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const originalContent = btn.innerHTML;
+
+            // Loading State
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> VERIFYING...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            // Simulate API delay
+            setTimeout(() => {
+                showToast("Identity Verified. Redirecting...");
+
+                // Reset button (optional, since we'd redirect normally)
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75');
+
+                    // Here you would redirect to the dashboard
+                    // window.location.href = '/dashboard';
+                }, 2000);
+            }, 1500);
+        }
+
+        // Handle Register Simulation
+        function handleRegister(e) {
+            e.preventDefault();
+            showToast("New User Protocol Initialized.");
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+
+            toast.classList.remove('translate-x-full');
+
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
